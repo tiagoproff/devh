@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 import { useChat } from "@/hooks/useChat";
@@ -25,7 +26,13 @@ export function Chat() {
   return (
     <section className={styles.container}>
       <header className={styles.avatar}>
-        <h1>Atendente Virtual</h1>
+        <Image
+          src="/devh-avatar.png"
+          alt="Avatar do DevH"
+          width={200}
+          height={200}
+          priority
+        />
       </header>
 
       <article className={styles.chat}>
