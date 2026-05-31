@@ -4,13 +4,13 @@ import { Message } from "@/types/Message";
 
 import styles from "./ChatPanel.module.css";
 
-interface ChatPanelProps {
+interface ChatPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   readonly messages: Message[];
 }
 
-export function ChatPanel({ messages }: ChatPanelProps) {
+export function ChatPanel({ messages, ...props }: ChatPanelProps) {
   return (
-    <div>
+    <div {...props}>
       <div className={styles.messages}>
         <ul>
           {messages.map((message) => (

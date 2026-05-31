@@ -33,13 +33,10 @@ export function Chat() {
           <h2>DevH</h2>
         </header>
 
-        <ChatPanel messages={messages} />
+        <ChatPanel className={styles.messages} messages={messages} />
 
         <footer className={styles.footer}>
           <form>
-            <label htmlFor="chat-input" className="sr-only">
-              Mensagem
-            </label>
             <input
               id="chat-input"
               type="text"
@@ -53,6 +50,11 @@ export function Chat() {
           </form>
         </footer>
       </article>
+      <legend className={styles.legend}>
+        <p>
+          ATENÇÃO: Só respondo por xícaras de café. E o limite diário é: 42.
+        </p>
+      </legend>
     </section>
   );
 }

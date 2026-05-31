@@ -2,6 +2,17 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-primary: #4caf50;
+  --color-secondary: #dc73fb;
+  --color-accent: #f57007;
+
+  --color-text: #fff;
+  --color-background: #fff;
+  --color-border: #ccc;
+  --border-radius: 8px;
+}
+
 html,
 body {
   margin: 0;
@@ -19,4 +30,16 @@ button,
 input,
 textarea {
   font: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #a2ff86;
+    --color-secondary: #db73fbfa;
+    --color-accent: #ff6b35;
+
+    --color-text: #fff;
+    --color-background: #2d2d2d;
+    --color-border: #ededed;
+  }
 }
