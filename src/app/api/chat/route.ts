@@ -1,19 +1,62 @@
 import { NextResponse } from "next/server";
 
 import { findResponse } from "@/services/fuse";
+import { createVisitorHash } from "@/services/hash";
+import { askOpenRouter } from "@/services/openrouter";
+import { redis } from "@/services/redis";
 import {
   getUsageRate,
   incrementFuseUsage,
   incrementOpenRouterUsage,
 } from "@/services/usage";
-import { getToday } from "@/utils/getToday";
-
 import { getDailyKey } from "@/utils/getDailyKey";
-import { createVisitorHash } from "@/services/hash";
-import { redis } from "@/services/redis";
+import { getToday } from "@/utils/getToday";
 
 export async function POST(request: Request) {
   const usage = getUsageRate();
+
+  await verifyDailyLimit(request);
+
+  const { message } = await request.json();
+
+  try {
+    if (usage.rate < 0.7) {
+      incrementFuseUsage();
+
+      const match = findResponse(message);
+
+      if (match?.found) {
+        return NextResponse.json({
+          message: match.response,
+          source: match.source,
+        });
+      }
+    }
+
+    // OpenRouter
+    const aiResponse = await askOpenRouter(message);
+
+    incrementOpenRouterUsage();
+
+    return NextResponse.json({
+      message: aiResponse,
+      source: "openrouter",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        message: "Até eu consegui quebrar isso.",
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+}
+
+async function verifyDailyLimit(request: Request) {
   const dailyKey = getTodayKey(request);
   const count = await redis.incr(dailyKey);
 
@@ -31,42 +74,6 @@ export async function POST(request: Request) {
 
   if (count === 1) {
     await redis.expire(dailyKey, 60 * 60 * 24); // expira em 24 horas
-  }
-
-  try {
-    if (usage.rate < 0.7) {
-      incrementFuseUsage();
-
-      const { message } = await request.json();
-      const match = findResponse(message);
-
-      if (match?.found) {
-        return NextResponse.json({
-          message: match.response,
-          source: match.source,
-        });
-      }
-    }
-
-    incrementOpenRouterUsage();
-
-    // IA aqui!
-
-    return NextResponse.json({
-      message: "Não faço ideia. Já tentou desligar e ligar?",
-      source: "fallback",
-    });
-  } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      {
-        message: "Até eu consegui quebrar isso.",
-      },
-      {
-        status: 500,
-      },
-    );
   }
 }
 
