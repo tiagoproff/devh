@@ -1,22 +1,25 @@
 [
   {
-    "keywords": ["react", "useeffect", "hook"],
+    "category": "react",
+    "keywords": ["react", "useeffect", "hook", "state", "jsx", "component"],
     "responses": [
-      "Já tentou remover o useEffect?",
       "Parece culpa do React.",
+      "Já tentou remover o useEffect?",
       "Isso é um comportamento criativo do React."
     ]
   },
   {
-    "keywords": ["erro", "bug", "quebrou"],
+    "category": "erro",
+    "keywords": ["erro", "bug", "travou", "quebrou", "exception", "falhou"],
     "responses": [
-      "Você já tentou desligar e ligar?",
       "Funciona na minha máquina.",
+      "Já tentou desligar e ligar?",
       "Estranho. Nunca aconteceu comigo."
     ]
   },
   {
-    "keywords": ["javascript"],
+    "category": "javascript",
+    "keywords": ["javascript", "js", "ecmascript", "frontend"],
     "responses": [
       "O problema começou quando você escolheu JavaScript.",
       "JavaScript está funcionando exatamente como foi projetado."
