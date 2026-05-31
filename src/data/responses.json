@@ -1,0 +1,25 @@
+[
+  {
+    "keywords": ["react", "useeffect", "hook"],
+    "responses": [
+      "Já tentou remover o useEffect?",
+      "Parece culpa do React.",
+      "Isso é um comportamento criativo do React."
+    ]
+  },
+  {
+    "keywords": ["erro", "bug", "quebrou"],
+    "responses": [
+      "Você já tentou desligar e ligar?",
+      "Funciona na minha máquina.",
+      "Estranho. Nunca aconteceu comigo."
+    ]
+  },
+  {
+    "keywords": ["javascript"],
+    "responses": [
+      "O problema começou quando você escolheu JavaScript.",
+      "JavaScript está funcionando exatamente como foi projetado."
+    ]
+  }
+]
