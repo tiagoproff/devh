@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import { typewriter } from "@/utils/typewriter";
 import { Message } from "@/types/Message";
+import { typewriter } from "@/utils/typewriter";
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -21,6 +21,7 @@ export function useChat() {
       id: crypto.randomUUID(),
       author: "user",
       content,
+      date: new Date().toISOString(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -52,6 +53,7 @@ export function useChat() {
           id: assistantId,
           author: "assistant",
           content: "",
+          date: new Date().toISOString(),
         },
       ]);
 
@@ -76,6 +78,7 @@ export function useChat() {
           id: crypto.randomUUID(),
           author: "assistant",
           content: "Até eu consegui quebrar isso.",
+          date: new Date().toISOString(),
         },
       ]);
     } finally {

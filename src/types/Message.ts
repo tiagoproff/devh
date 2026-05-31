@@ -4,4 +4,5 @@ export interface Message {
   id: string;
   author: MessageAuthor;
   content: string;
+  date: string;
 }
